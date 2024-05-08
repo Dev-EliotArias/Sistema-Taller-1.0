@@ -1,0 +1,27 @@
+@startuml diagraClases
+    class User{
+        -id : Long
+        -userName : String
+        -password : String
+        -idEmpleado : Empleado
+    }
+
+    class UserDTO{
+        -id : Long
+        -nomUser : String
+        -password : String
+        -idEmpleado : Empleado
+    }
+
+    interface UsuarioRepository {
+        +findByUserName(String userName): Obtional<User>         
+    }
+
+    interface UserService {
+        
+    }
+
+
+
+
+@end
