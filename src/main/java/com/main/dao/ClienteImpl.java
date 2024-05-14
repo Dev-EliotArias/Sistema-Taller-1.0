@@ -25,8 +25,7 @@ public class ClienteImpl implements ClienteService {
 	@Override
 	public List<ClienteDTO> getAllClients() {
 		// TODO Auto-generated method stub
-		List<Cliente> clientes = clienteRepository.findAll();
-				
+		List<Cliente> clientes = clienteRepository.findAll();				
 		return clientes.stream()
 				.map(cliente -> modelMapper.map(cliente, ClienteDTO.class))
 				.collect(Collectors.toList());
@@ -35,7 +34,8 @@ public class ClienteImpl implements ClienteService {
 	@Override
 	public ClienteDTO getClientById(Long id) {
 		// TODO Auto-generated method stub
-		Cliente cliente = clienteRepository.findById(id).orElseThrow();
+		Cliente cliente = clienteRepository.findById(id).orElseThrow(
+				() -> new RuntimeException("Cliente no encontrado"));
 		return modelMapper.map(cliente, ClienteDTO.class);
 	}
 
@@ -49,12 +49,22 @@ public class ClienteImpl implements ClienteService {
 
 	@Override
 	public ClienteDTO updateClient(Long id, ClienteDTO clienteDTO) {
-		// TODO Auto-generated method stub
-		Cliente cliente = clienteRepository.findById(id).orElseThrow();
-		modelMapper.map(clienteDTO, cliente);
-		cliente = clienteRepository.save(cliente);
-		return modelMapper.map(cliente, ClienteDTO.class);
-	}
+		// TODO Auto-generated method stub		
+		Cliente clienteFromDB = clienteRepository.findById(id).orElseThrow(
+				() -> new RuntimeException("Cliente no encontrado"));
+		clienteFromDB.setNombre(clienteDTO.getNombre());
+	    clienteFromDB.setApellido(clienteDTO.getApellido());
+	    clienteFromDB.setDni(clienteDTO.getDni());
+	    clienteFromDB.setRuc(clienteDTO.getRuc());
+	    clienteFromDB.setRazonSocial(clienteDTO.getRazonSocial());
+	    clienteFromDB.setCorreo(clienteDTO.getCorreo());
+	    clienteFromDB.setDireccion(clienteDTO.getDireccion());
+	    clienteFromDB.setTelefono(clienteDTO.getTelefono());
+	    clienteFromDB.setTipoCliente(clienteDTO.getTipoCliente());
+	    clienteFromDB.setTipoPago(clienteDTO.getTipoPago());		
+		Cliente updatedClient = clienteRepository.save(clienteFromDB);
+		return modelMapper.map(updatedClient, ClienteDTO.class);
+	}	
 
 	@Override
 	public void deleteCliente(Long id) {

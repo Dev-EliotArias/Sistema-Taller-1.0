@@ -7,8 +7,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,9 +29,7 @@ public class Cliente {
     private String ruc;
     private String razonSocial;
     private String correo;
-    @ManyToOne
-    @JoinColumn(name = "direccion_id")
-    private Direccion direccion;
+    private String direccion;
     private String telefono;
     @Enumerated(EnumType.STRING)
     private TipoCliente tipoCliente;

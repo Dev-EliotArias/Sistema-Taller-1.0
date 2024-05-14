@@ -27,10 +27,8 @@ public class Tecnico {
     private String dni;
     private Date fechaNacimiento;
     private Double sueldo;
-    private String telefono;
-    @ManyToOne
-    @JoinColumn(name = "direccion_id")
-    private Direccion direccion;
+    private String telefono;    
+    private String direccion;
 
     // Constructors, getters, setters, and equals/hashcode methods
 }

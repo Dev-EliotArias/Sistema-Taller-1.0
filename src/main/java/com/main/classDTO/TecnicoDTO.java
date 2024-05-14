@@ -19,5 +19,5 @@ public class TecnicoDTO {
     private Date fechaNacimiento;
     private Double sueldo;
     private String telefono;
-    private DireccionDTO direccion;
+    private String direccion;
 }

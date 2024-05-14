@@ -2,6 +2,9 @@ package com.main.classDTO;
 
 import java.util.List;
 
+import com.main.entities.TipoCliente;
+import com.main.entities.TipoPago;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,9 +22,9 @@ public class ClienteDTO {
     private String ruc;
     private String razonSocial;
     private String correo;
-    private DireccionDTO direccion;
+    private String direccion;
     private String telefono;
-    private TipoClienteDTO tipoCliente;
+    private TipoCliente tipoCliente;
     private List<VehiculoDTO> vehiculo;
-    private TipoPagoDTO tipoPago;
+    private TipoPago tipoPago;
 }
