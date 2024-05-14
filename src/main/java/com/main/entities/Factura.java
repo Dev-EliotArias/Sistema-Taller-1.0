@@ -1,5 +1,7 @@
 package com.main.entities;
 
+import java.util.Date;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,21 +15,23 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class Vehiculo {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String marca;
-    private String modelo;
-    private String color;
-    private String anio;
-    private String placa;
-    @ManyToOne
-    @JoinColumn(name = "cliente_id")
-    private Cliente cliente;
+public class Factura {
 
-    // Constructors, getters, setters, and equals/hashcode methods
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@ManyToOne
+	@JoinColumn(name = "vehiculo_id")
+	private Vehiculo vehiculo;
+	@ManyToOne
+	@JoinColumn(name = "cliente_id")
+	private Cliente cliente;
+	@ManyToOne
+	@JoinColumn(name = "orden_trabajo_id")
+	private OrdenTrabajo ordenTrabajo;
+	private Date fecha;
+
 }

@@ -1,4 +1,4 @@
-package com.main.services;
+package com.main.authServices;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -1,13 +1,13 @@
 @startuml clases
     class Cliente{
         -id: Long
-        -firstName: String
-        -lastName: String
+        -nombre: String
+        -apellido: String
         -dni: String
         -ruc: String
         -razonSocial: String
-        -email: String
-        -address: Address
+        -correo: String
+        -direccion: String
         -telefono: String
         -tipoCliente: TipoCliente
         -vehiculo: List<Vehiculo>
@@ -31,7 +31,6 @@
         -calle: String
         -distrito: String
         -departamento: String
-        -completo: String
     }
 
     class Vehiculo{
@@ -54,18 +53,18 @@
 
     class Tecnico{
         -id: Long
-        -firstName: String
-        -lastName: String
+        -nombre: String 
+        -apellido: String 
         -dni: String
-        -fechaNacimiento: Date
-        -sueldo: String
-        -telefono: String
-        -address: Address
+        -fechaNacimiento: Date 
+        -sueldo: Double 
+        -telefono: String 
+        -direccion: Direccion
     }
 
     class OrdenTrabajo{
         -id: Long
-        -automovil: Automovil
+        -vehiculo: Vehiculo
         -fechaIngreso: Date
         -fechaSalida: Date
         -servicios: List<Servicios>
@@ -82,19 +81,21 @@
 
     class Factura{
         -id: Long
-        -automovil: Automovil
+        -vehiculo: Vehiculo
         -cliente: Cliente
         -ordenTrabajo: OrdenTrabajo
         -fecha: Date
     }
 
-    'Relaciones'
     Cliente --* Vehiculo
-    Vehiculo --* Cliente
+    Cliente -- Direccion
+    Tecnico -- Direccion
+    Vehiculo -- Cliente
     Tecnico --* OrdenTrabajo
     OrdenTrabajo --* Tecnico
     OrdenTrabajo --* Factura
     Factura --* OrdenTrabajo
     Servicios --* OrdenTrabajo
     OrdenTrabajo --* Servicios
-@enduml
+
+@enduml 

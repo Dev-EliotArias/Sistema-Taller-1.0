@@ -1,11 +1,11 @@
 package com.main.entities;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,21 +13,15 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class Vehiculo {
-    @Id
+public class Direccion {
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String marca;
-    private String modelo;
-    private String color;
-    private String anio;
-    private String placa;
-    @ManyToOne
-    @JoinColumn(name = "cliente_id")
-    private Cliente cliente;
-
-    // Constructors, getters, setters, and equals/hashcode methods
+    private String cooperativa;
+    private String calle;
+    private String distrito;
+    private String departamento;
 }

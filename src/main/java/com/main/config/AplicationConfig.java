@@ -1,5 +1,6 @@
 package com.main.config;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -47,6 +48,11 @@ public class AplicationConfig {
 		return username -> userRepository.findByUsername(username)
 				.orElseThrow(()-> new UsernameNotFoundException("User not Found"));
 	}	
+	
+	@Bean
+	public ModelMapper modelMapper() {
+		return new ModelMapper();
+	}
 	
 
 }
