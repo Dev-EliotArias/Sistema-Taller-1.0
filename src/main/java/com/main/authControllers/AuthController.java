@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.main.auth.AuthResponse;
 import com.main.auth.LoginRequest;
 import com.main.auth.RegisterRequest;
-import com.main.services.AuthService;
+import com.main.authServices.AuthService;
 
 import lombok.RequiredArgsConstructor;
 

@@ -1,5 +1,6 @@
 package com.main.config;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.main.authRepository.UserRepository;
+import com.main.entities.Cliente;
 
 import lombok.RequiredArgsConstructor;
 
@@ -48,5 +50,9 @@ public class AplicationConfig {
 				.orElseThrow(()-> new UsernameNotFoundException("User not Found"));
 	}	
 	
+	@Bean
+	public ModelMapper modelMapper() {
+		return new ModelMapper();
+	}
 
 }
