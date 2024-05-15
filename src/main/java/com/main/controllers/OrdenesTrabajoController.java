@@ -1,6 +1,7 @@
 package com.main.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,18 +34,20 @@ public class OrdenesTrabajoController {
     
     @GetMapping("/{id}")
     public ResponseEntity<OrdenTrabajoDTO> getOrdenTrabajoById(@PathVariable Long id) {
-        OrdenTrabajoDTO ordenTrabajo = ordenTrabajoService.getOrdenTrabajoById(id);
-        if (ordenTrabajo != null) {
-            return new ResponseEntity<>(ordenTrabajo, HttpStatus.OK);
+        Optional<OrdenTrabajoDTO> optionalOrdenTrabajo = ordenTrabajoService.getOrdenTrabajoById(id);
+        if (optionalOrdenTrabajo.isPresent()) {
+            return new ResponseEntity<>(optionalOrdenTrabajo.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+    
+    
 
     @PostMapping
     public ResponseEntity<OrdenTrabajoDTO> createOrdenTrabajo(@RequestBody OrdenTrabajoDTO ordenTrabajoDTO) {
-        OrdenTrabajoDTO newOrdenTrabajo = ordenTrabajoService.createOrdenTrabajo(ordenTrabajoDTO);
-        return new ResponseEntity<>(newOrdenTrabajo, HttpStatus.CREATED);
+    	Optional<OrdenTrabajoDTO> optionalOrdenTrabajo = ordenTrabajoService.createOrdenTrabajo(ordenTrabajoDTO);
+        return new ResponseEntity<>(optionalOrdenTrabajo.get(), HttpStatus.CREATED);
     }
     
     

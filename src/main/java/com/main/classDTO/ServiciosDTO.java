@@ -14,5 +14,5 @@ public class ServiciosDTO {
     private String nombre;
     private Double costo;
     private String descripcion;
-    private Double tiempoEstimado;
+    private Integer tiempoEstimado;
 }
