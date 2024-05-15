@@ -2,6 +2,7 @@ package com.main.classDTO;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.main.entities.TipoCliente;
 import com.main.entities.TipoPago;
 
@@ -25,6 +26,6 @@ public class ClienteDTO {
     private String direccion;
     private String telefono;
     private TipoCliente tipoCliente;
-    private List<VehiculoDTO> vehiculo;
+    private List<VehiculoDTO> vehiculos;
     private TipoPago tipoPago;
 }

@@ -3,6 +3,8 @@ package com.main.classDTO;
 import java.util.Date;
 import java.util.List;
 
+import com.main.entities.Estado;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,5 +22,6 @@ public class OrdenTrabajoDTO {
     private List<ServiciosDTO> servicios;
     private Double costoTotal;
     private String comentario;
-    private EstadoDTO estado;
+    private Estado estado;
+    private TecnicoDTO tecnico;
 }

@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.main.classDTO.ClienteDTO;
+import com.main.classDTO.VehiculoDTO;
 import com.main.entities.Cliente;
+import com.main.entities.Vehiculo;
 import com.main.repositories.ClienteRepository;
+import com.main.repositories.VehiculoRepository;
 import com.main.services.ClienteService;
 
 @Service
@@ -19,24 +22,32 @@ public class ClienteImpl implements ClienteService {
 	private ClienteRepository clienteRepository;
 	
 	@Autowired
-	private ModelMapper modelMapper;
+	private VehiculoRepository vehiculoRepository;
 	
+	@Autowired
+	private ModelMapper modelMapper;
 	
 	@Override
 	public List<ClienteDTO> getAllClients() {
 		// TODO Auto-generated method stub
-		List<Cliente> clientes = clienteRepository.findAll();				
-		return clientes.stream()
-				.map(cliente -> modelMapper.map(cliente, ClienteDTO.class))
-				.collect(Collectors.toList());
+		List<Cliente> clientes = clienteRepository.findAll();
+        return clientes.stream()
+                .map(cliente -> modelMapper.map(cliente, ClienteDTO.class))
+                .collect(Collectors.toList());		
 	}
-
+	
 	@Override
 	public ClienteDTO getClientById(Long id) {
 		// TODO Auto-generated method stub
 		Cliente cliente = clienteRepository.findById(id).orElseThrow(
 				() -> new RuntimeException("Cliente no encontrado"));
-		return modelMapper.map(cliente, ClienteDTO.class);
+		ClienteDTO clienteDTO = modelMapper.map(cliente, ClienteDTO.class);
+		List<Vehiculo> vehiculos = vehiculoRepository.findByClienteId(id);
+		List<VehiculoDTO> vehiculosDTO = vehiculos.stream()
+				.map(vehiculo -> modelMapper.map(vehiculo, VehiculoDTO.class))
+				.collect(Collectors.toList());
+		clienteDTO.setVehiculos(vehiculosDTO);		
+		return clienteDTO;
 	}
 
 	@Override
@@ -51,7 +62,7 @@ public class ClienteImpl implements ClienteService {
 	public ClienteDTO updateClient(Long id, ClienteDTO clienteDTO) {
 		// TODO Auto-generated method stub		
 		Cliente clienteFromDB = clienteRepository.findById(id).orElseThrow(
-				() -> new RuntimeException("Cliente no encontrado"));
+				() -> new RuntimeException("Cliente no encontrado"));		
 		clienteFromDB.setNombre(clienteDTO.getNombre());
 	    clienteFromDB.setApellido(clienteDTO.getApellido());
 	    clienteFromDB.setDni(clienteDTO.getDni());
@@ -62,8 +73,8 @@ public class ClienteImpl implements ClienteService {
 	    clienteFromDB.setTelefono(clienteDTO.getTelefono());
 	    clienteFromDB.setTipoCliente(clienteDTO.getTipoCliente());
 	    clienteFromDB.setTipoPago(clienteDTO.getTipoPago());		
-		Cliente updatedClient = clienteRepository.save(clienteFromDB);
-		return modelMapper.map(updatedClient, ClienteDTO.class);
+		Cliente updatedCliente = clienteRepository.save(clienteFromDB);
+		return modelMapper.map(updatedCliente, ClienteDTO.class);
 	}	
 
 	@Override

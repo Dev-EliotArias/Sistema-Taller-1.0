@@ -1,5 +1,7 @@
 package com.main.entities;
 
+
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,9 +27,9 @@ public class Vehiculo {
     private String color;
     private String anio;
     private String placa;
+    
     @ManyToOne
-    @JoinColumn(name = "cliente_id")
+    @JoinColumn(name = "cliente_id")    
+    //@JsonIgnoreProperties("vehiculo")		
     private Cliente cliente;
-
-    // Constructors, getters, setters, and equals/hashcode methods
 }

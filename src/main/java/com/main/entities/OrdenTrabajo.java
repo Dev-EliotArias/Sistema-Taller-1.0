@@ -3,6 +3,8 @@ package com.main.entities;
 import java.util.Date;
 import java.util.List;
 
+import com.main.classDTO.ServiciosDTO;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -44,6 +46,4 @@ public class OrdenTrabajo {
     @ManyToOne
     @JoinColumn(name = "tecnico_id")
     private Tecnico tecnico;
-
-    // Constructors, getters, setters, and equals/hashcode methods
 }

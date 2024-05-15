@@ -27,8 +27,8 @@ public class ClienteController {
 	@GetMapping
 	public ResponseEntity<List<ClienteDTO>> getAllClientes() {
 
-		List<ClienteDTO> clienteDTOs = clienteService.getAllClients();
-		return new ResponseEntity<>(clienteDTOs, HttpStatus.OK);
+		List<ClienteDTO> clientesDTO = clienteService.getAllClients();
+		return new ResponseEntity<>(clientesDTO, HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
@@ -41,7 +41,7 @@ public class ClienteController {
 	public ResponseEntity<ClienteDTO> createCliente(@RequestBody ClienteDTO clienteDTO) {
 		ClienteDTO createdClienteDTO = clienteService.createClient(clienteDTO);
 		return new ResponseEntity<>(createdClienteDTO, HttpStatus.CREATED);
-	}
+	}	
 
 	@PutMapping("/{id}")
 	public ResponseEntity<ClienteDTO> updateCliente(@PathVariable Long id, @RequestBody ClienteDTO clienteDTO) {		

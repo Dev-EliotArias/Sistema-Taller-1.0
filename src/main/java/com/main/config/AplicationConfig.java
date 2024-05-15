@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.main.authRepository.UserRepository;
+import com.main.entities.Cliente;
 
 import lombok.RequiredArgsConstructor;
 
@@ -53,6 +54,5 @@ public class AplicationConfig {
 	public ModelMapper modelMapper() {
 		return new ModelMapper();
 	}
-	
 
 }
