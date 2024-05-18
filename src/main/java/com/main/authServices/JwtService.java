@@ -26,7 +26,9 @@ public class JwtService {
 
 	private String getToken(Map<String, Object> extraClaims, UserDetails user) {
 		// TODO Auto-generated method stub
-		return Jwts.builder().setClaims(null).setSubject(user.getUsername())
+		extraClaims.put("role", user.getAuthorities().iterator().next().getAuthority());
+		return Jwts.builder().setClaims(extraClaims)
+				.setSubject(user.getUsername())
 				.setIssuedAt(new Date(System.currentTimeMillis()))
 				.setExpiration(new Date(System.currentTimeMillis() + 4 * 60 * 60 * 1000))
 				.signWith(getKey(), SignatureAlgorithm.HS256).compact();

@@ -32,6 +32,7 @@ public class AuthService {
 		
 		return AuthResponse.builder()
 				.token(token)
+				.role(user.getAuthorities().iterator().next().getAuthority())
 				.build();
 	}
 
