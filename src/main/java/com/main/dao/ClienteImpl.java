@@ -62,12 +62,10 @@ public class ClienteImpl implements ClienteService {
 	public ClienteDTO updateClient(Long id, ClienteDTO clienteDTO) {
 		// TODO Auto-generated method stub		
 		Cliente clienteFromDB = clienteRepository.findById(id).orElseThrow(
-				() -> new RuntimeException("Cliente no encontrado"));		
-		clienteFromDB.setNombre(clienteDTO.getNombre());
-	    clienteFromDB.setApellido(clienteDTO.getApellido());
-	    clienteFromDB.setDni(clienteDTO.getDni());
-	    clienteFromDB.setRuc(clienteDTO.getRuc());
-	    clienteFromDB.setRazonSocial(clienteDTO.getRazonSocial());
+				() -> new RuntimeException("Cliente no encontrado"));
+	    clienteFromDB.setNombreRazonSocial(clienteDTO.getNombreRazonSocial());
+	    clienteFromDB.setTipoDocumento(clienteDTO.getTipoDocumento());
+		clienteFromDB.setNumeroDoc(clienteDTO.getNumeroDoc());
 	    clienteFromDB.setCorreo(clienteDTO.getCorreo());
 	    clienteFromDB.setDireccion(clienteDTO.getDireccion());
 	    clienteFromDB.setTelefono(clienteDTO.getTelefono());

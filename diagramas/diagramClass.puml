@@ -1,0 +1,115 @@
+@startuml class
+
+class Cliente {
+    - Long id
+    - String nombreRazonSocial
+    - TipoDocumento tipoDocumento
+    - String numeroDoc
+    - String correo
+    - String direccion
+    - String telefono
+    - TipoCliente tipoCliente
+    - List<Vehiculo> vehiculo
+    - TipoPago tipoPago
+}
+
+' enum TipoDocumento {
+'     DNI, RUC, CE, PASAPORTE
+' }
+
+' enum TipoCliente {
+'     PERSONA_NATURAL,
+'     EMPRESA,
+'     CLIENTE_NORMAL
+' }
+
+' enum TipoPago {
+'     EFECTIVO, TARJETA
+' }
+
+class Vehiculo {
+    - Long id
+    - String marca
+    - String modelo
+    - String color
+    - String anio
+    - String placa
+    - Cliente cliente
+}
+
+class Servicios {
+    - Long id
+    - String nombre
+    - Double costo
+    - String descripcion
+    - Integer tiempoEstimado
+}
+
+class OrdenTrabajo {
+    - Long id
+    - Vehiculo vehiculo
+    - Date fechaIngreso
+    - Date fechaSalida
+    - List<Servicios> servicios
+    - Double costoTotal
+    - String comentario
+    - Estado estado
+    - Tecnico tecnico
+}
+
+' enum Estado {
+'     PENDIENTE, EN_PROCESO, FINALIZADO
+' }
+
+class Factura {
+    - Long id
+    - Vehiculo vehiculo
+    - Cliente cliente
+    - OrdenTrabajo ordenTrabajo
+    - Date fecha
+}
+
+class Tecnico {
+    - Long id
+    - String nombre
+    - String apellido
+    - String dni
+    - Date fechaNacimiento
+    - Double sueldo
+    - String telefono
+    - String direccion
+    - String email
+    - Especialidad especialidad
+    - Date fechaIngreso
+    - TecEstado estado
+}
+
+enum Especialidad {
+    MECANICA_GENERAL, ELECTRICIDAD,
+    PINTURA,
+    CHAPA_Y_PINTURA,
+    AIRE_ACONDICIONADO,
+    TRANSMISION,
+    SUSPENSION
+}
+
+' enum TecEstado {
+'     ACTIVO,
+'     INACTIVO,
+'     LICENCIA,
+'     RETIRADO
+' }
+
+
+Cliente "1" -- "0..*" Vehiculo : posee
+Vehiculo "1" -- "0..1" Cliente : pertenece a
+OrdenTrabajo "1" -- "1" Vehiculo : para
+OrdenTrabajo "0..*" -- "0..1" Tecnico : asignado a
+OrdenTrabajo "0..*" -- "0..*" Servicios : incluye
+Factura "1" -- "1" Vehiculo : para
+Factura "1" -- "1" Cliente : emitido a
+Factura "1" -- "1" OrdenTrabajo : basado en
+Tecnico "0..*" -- "1" Especialidad : tiene
+
+
+@enduml

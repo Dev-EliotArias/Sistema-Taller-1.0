@@ -1,7 +1,6 @@
 package com.main.classDTO;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,6 +18,5 @@ public class VehiculoDTO {
     private String color;
     private String anio;
     private String placa;
-    @JsonIgnore
-    private ClienteDTO cliente;
+    private Long propietarioId;
 }

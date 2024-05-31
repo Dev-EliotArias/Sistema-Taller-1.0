@@ -29,7 +29,7 @@ public class TecnicoImpl implements TecnicoService {
 
     @Override
     public TecnicoDTO getTecnicoById(Long id) {
-        Tecnico tecnico = tecnicoRepository.findById(id).orElseThrow(() -> new RuntimeException("Tecnico not found"));
+        Tecnico tecnico = tecnicoRepository.findById(id).orElseThrow(() -> new RuntimeException("Tecnico no Econtrado"));
         return modelMapper.map(tecnico, TecnicoDTO.class);
     }
 
@@ -50,6 +50,10 @@ public class TecnicoImpl implements TecnicoService {
         tecnico.setSueldo(tecnicoDTO.getSueldo());
         tecnico.setTelefono(tecnicoDTO.getTelefono());
         tecnico.setDireccion(tecnicoDTO.getDireccion());
+        tecnico.setCorreo(tecnicoDTO.getCorreo());
+        tecnico.setEspecialidad(tecnicoDTO.getEspecialidad());
+        tecnico.setFechaIngreso(tecnicoDTO.getFechaIngreso());
+        tecnico.setEstado(tecnicoDTO.getEstado());
         tecnico = tecnicoRepository.save(tecnico);
         return modelMapper.map(tecnico, TecnicoDTO.class);
     }

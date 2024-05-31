@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.main.classDTO.ClienteDTO;
 import com.main.classDTO.OrdenTrabajoDTO;
 import com.main.classDTO.ServiciosDTO;
 import com.main.classDTO.TecnicoDTO;
@@ -46,7 +47,11 @@ public class OrdenTrabajoImpl implements OrdenTrabajoService {
 	public List<OrdenTrabajoDTO> getAllOrdenesTrabajo() {
 		// TODO Auto-generated method stub
 		List<OrdenTrabajo> ordenesTrabajo = ordenTrabajoRepository.findAll();
-		return ordenesTrabajo.stream().map(this::convertToDTO).collect(Collectors.toList());
+		List<OrdenTrabajoDTO> ordenTrabajoDTOs;
+		
+		return ordenesTrabajo.stream()
+                .map(ordenTrabajo -> convertToDTO(ordenTrabajo))
+                .collect(Collectors.toList());
 	}
 
 	@Override
@@ -69,14 +74,17 @@ public class OrdenTrabajoImpl implements OrdenTrabajoService {
 
 	@Override
 	public Optional<OrdenTrabajoDTO> createOrdenTrabajo(OrdenTrabajoDTO nuevaOrdenTrabajoDTO) {
+			
+		Vehiculo vehiculoOrdenT = vehiculoRepository.findById(nuevaOrdenTrabajoDTO.getVehiculoId()).orElseThrow(() -> new NotFoundException("Vehiculo not found"));
+	    List<Servicios> serviciosOrdenT = serviciosRepository.findAllById(nuevaOrdenTrabajoDTO.getServiciosId().stream().collect(Collectors.toList()));	    
+	    Tecnico tecnicoOrdenT = tecnicoRepository.findById(nuevaOrdenTrabajoDTO.getTecnicoId()).orElseThrow(() -> new NotFoundException("Tecnico not found"));
+
 		
-		if (nuevaOrdenTrabajoDTO == null || nuevaOrdenTrabajoDTO.getVehiculo() == null || nuevaOrdenTrabajoDTO.getTecnico() == null || nuevaOrdenTrabajoDTO.getServicios() == null) {
+		if (nuevaOrdenTrabajoDTO == null || vehiculoOrdenT == null || tecnicoOrdenT == null || serviciosOrdenT.isEmpty()) {
 			return null;
 		}
 		
-		Vehiculo vehiculo = vehiculoRepository.findById(nuevaOrdenTrabajoDTO.getVehiculo().getId()).orElseThrow(() -> new NotFoundException("Vehiculo not found"));
-	    List<Servicios> servicios = serviciosRepository.findAllById(nuevaOrdenTrabajoDTO.getServicios().stream().map(ServiciosDTO::getId).collect(Collectors.toList()));
-	    Tecnico tecnico = tecnicoRepository.findById(nuevaOrdenTrabajoDTO.getTecnico().getId()).orElseThrow(() -> new NotFoundException("Tecnico not found"));
+		//Vehiculo vehiculo = vehiculoRepository.findById(nuevaOrdenTrabajoDTO.getVehiculo().getId()).orElseThrow(() -> new NotFoundException("Vehiculo not found"));
 	    
 	    
 	    //OrdenTrabajo existingOrder = ordenTrabajoRepository.findByVehiculoAndServiciosAndTecnico(vehiculo, servicios, tecnico);
@@ -85,9 +93,9 @@ public class OrdenTrabajoImpl implements OrdenTrabajoService {
 	    //}
 	    
 	    OrdenTrabajo nuevaOrdenTrabajo = OrdenTrabajo.builder()
-	            .vehiculo(vehiculo)
-	            .servicios(servicios)
-	            .tecnico(tecnico)
+	            .vehiculo(vehiculoOrdenT)
+	            .servicios(serviciosOrdenT)
+	            .tecnico(tecnicoOrdenT)
 	            .fechaIngreso(nuevaOrdenTrabajoDTO.getFechaIngreso())
 	            .fechaSalida(nuevaOrdenTrabajoDTO.getFechaSalida())
 	            .costoTotal(nuevaOrdenTrabajoDTO.getCostoTotal())
@@ -96,8 +104,9 @@ public class OrdenTrabajoImpl implements OrdenTrabajoService {
 	            .build();
 	    
 	    OrdenTrabajo ordenTrabajoGuardada = ordenTrabajoRepository.save(nuevaOrdenTrabajo);
+	    
 		
-		return Optional.ofNullable(modelMapper.map(ordenTrabajoGuardada, OrdenTrabajoDTO.class));
+		return Optional.ofNullable(convertToDTO(ordenTrabajoGuardada));
 		
 	}
 
@@ -107,18 +116,29 @@ public class OrdenTrabajoImpl implements OrdenTrabajoService {
 	@Override
 	public OrdenTrabajoDTO updateOrdenTrabajo(Long id, OrdenTrabajoDTO ordenTrabajoActualizadaDTO) {
 		// TODO Auto-generated method stub
+		
 		Optional<OrdenTrabajo> ordenTrabajoEncontrada = ordenTrabajoRepository.findById(id);
+		Vehiculo vehiculoOrdenT = vehiculoRepository.findById(ordenTrabajoActualizadaDTO.getVehiculoId()).orElseThrow(() -> new NotFoundException("Vehiculo not found"));
+	    List<Servicios> serviciosOrdenT = serviciosRepository.findAllById(ordenTrabajoActualizadaDTO.getServiciosId().stream().collect(Collectors.toList()));	    
+	    Tecnico tecnicoOrdenT = tecnicoRepository.findById(ordenTrabajoActualizadaDTO.getTecnicoId()).orElseThrow(() -> new NotFoundException("Tecnico not found"));
+
+	    if (ordenTrabajoActualizadaDTO == null || vehiculoOrdenT == null || tecnicoOrdenT == null || serviciosOrdenT.isEmpty()) {
+			return null;
+		}
+	    
 		//OrdenTrabajo ordenTrabajo = ordenTrabajoRepository.findById(id).orElse(null);
 		if (ordenTrabajoEncontrada.isPresent()) {
 			OrdenTrabajo ordenTrabajo = ordenTrabajoEncontrada.get();			
 			ordenTrabajo.setFechaIngreso(ordenTrabajoActualizadaDTO.getFechaIngreso());
             ordenTrabajo.setFechaSalida(ordenTrabajoActualizadaDTO.getFechaSalida());
-            ordenTrabajo.setServicios(ordenTrabajoActualizadaDTO.getServicios().stream().map(servicioDTO -> modelMapper.map(servicioDTO, Servicios.class)).collect(Collectors.toList()));
-            ordenTrabajo.setTecnico(modelMapper.map(ordenTrabajoActualizadaDTO.getTecnico(), Tecnico.class));
+            ordenTrabajo.setVehiculo(vehiculoOrdenT);
+            ordenTrabajo.setServicios(serviciosOrdenT);
+            ordenTrabajo.setTecnico(tecnicoOrdenT);
             ordenTrabajo.setCostoTotal(ordenTrabajoActualizadaDTO.getCostoTotal());
             ordenTrabajo.setComentario(ordenTrabajoActualizadaDTO.getComentario());
             ordenTrabajo.setEstado(ordenTrabajoActualizadaDTO.getEstado());
             ordenTrabajoRepository.save(ordenTrabajo);
+            
 			return convertToDTO(ordenTrabajo);
 		}
 		return null;
@@ -130,41 +150,21 @@ public class OrdenTrabajoImpl implements OrdenTrabajoService {
 		ordenTrabajoRepository.deleteById(id);
 	}
 
-	private OrdenTrabajoDTO convertToDTO(OrdenTrabajo ordenTrabajo) {
-		OrdenTrabajoDTO ordenTrabajoDTO = OrdenTrabajoDTO.builder().
-				id(ordenTrabajo.getId())
-				.vehiculo(VehiculoDTO.builder().id(ordenTrabajo.getVehiculo().getId())
-						.marca(ordenTrabajo.getVehiculo().getMarca())
-						.modelo(ordenTrabajo.getVehiculo().getModelo())
-						.color(ordenTrabajo.getVehiculo().getColor())
-						.anio(ordenTrabajo.getVehiculo().getAnio())
-						.placa(ordenTrabajo.getVehiculo().getPlaca())
-						.build())
-				.fechaIngreso(ordenTrabajo.getFechaIngreso()).fechaSalida(ordenTrabajo.getFechaSalida())
-				.servicios(ordenTrabajo.getServicios().stream()
-						.map(servicio -> ServiciosDTO.builder()
-								.id(servicio.getId())
-								.nombre(servicio.getNombre())
-								.costo(servicio.getCosto())
-								.descripcion(servicio.getDescripcion())
-								.tiempoEstimado(servicio.getTiempoEstimado())
-								.build())
-						.collect(Collectors.toList()))
-				.costoTotal(ordenTrabajo.getCostoTotal()).comentario(ordenTrabajo.getComentario())
-				.estado(ordenTrabajo.getEstado())
-				.tecnico(TecnicoDTO.builder()
-						.id(ordenTrabajo.getTecnico().getId())
-						.nombre(ordenTrabajo.getTecnico().getNombre())
-						.apellido(ordenTrabajo.getTecnico().getApellido())
-						.dni(ordenTrabajo.getTecnico().getDni())
-						.fechaNacimiento(ordenTrabajo.getTecnico().getFechaNacimiento())
-						.sueldo(ordenTrabajo.getTecnico().getSueldo())
-						.telefono(ordenTrabajo.getTecnico().getTelefono())
-						.direccion(ordenTrabajo.getTecnico().getDireccion())
-						.build())
-				.build();
-		return ordenTrabajoDTO;
-	}
+	public OrdenTrabajoDTO convertToDTO(OrdenTrabajo ordenTrabajo) {
+        return OrdenTrabajoDTO.builder()
+                .id(ordenTrabajo.getId())
+                .vehiculoId(ordenTrabajo.getVehiculo().getId())
+                .fechaIngreso(ordenTrabajo.getFechaIngreso())
+                .fechaSalida(ordenTrabajo.getFechaSalida())
+                .serviciosId(ordenTrabajo.getServicios().stream()
+                        .map(Servicios::getId)
+                        .collect(Collectors.toList()))
+                .costoTotal(ordenTrabajo.getCostoTotal())
+                .comentario(ordenTrabajo.getComentario())
+                .estado(ordenTrabajo.getEstado())
+                .tecnicoId(ordenTrabajo.getTecnico().getId())
+                .build();
+    }	
 
 	private OrdenTrabajo convertToEntity(OrdenTrabajoDTO ordenTrabajoDTO) {
 		OrdenTrabajo ordenTrabajo = OrdenTrabajo.builder()

@@ -1,9 +1,12 @@
 package com.main.classDTO;
 
+import java.sql.Date;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.main.entities.TipoCliente;
+import com.main.entities.TipoDocumento;
 import com.main.entities.TipoPago;
 
 import lombok.AllArgsConstructor;
@@ -17,13 +20,13 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ClienteDTO {
     private Long id;
-    private String nombre;
-    private String apellido;
-    private String dni;
-    private String ruc;
-    private String razonSocial;
+    private String nombreRazonSocial;
+    private TipoDocumento tipoDocumento;
+    private String numeroDoc;
     private String correo;
     private String direccion;
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private Date fechaRegistro;
     private String telefono;
     private TipoCliente tipoCliente;
     private List<VehiculoDTO> vehiculos;
