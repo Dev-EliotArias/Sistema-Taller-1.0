@@ -1,0 +1,81 @@
+@startuml claseCliente
+package entity {
+    class Cliente {
+        Long id
+        String nombreRazonSocial
+        TipoDocumento tipoDocumento
+        String numeroDoc
+        String correo
+        String direccion
+        Date fechaRegistro
+        String telefono
+        TipoCliente tipoCliente
+        List<Vehiculo> vehiculo
+        TipoPago tipoPago
+    }
+
+    enum TipoDocumento {
+        DNI
+        RUC
+        CE
+        PASAPORTE
+    }
+
+    enum TipoCliente {
+        PERSONA_NATURAL
+        EMPRESA
+        CLIENTE_NORMAL
+    }
+
+    enum TipoPago {
+        EFECTIVO
+        TARJETA
+    }
+
+    Cliente "1" -- "0..*" Vehiculo : vehiculo
+}
+
+package repository {
+    interface ClienteRepository
+}
+
+package service {
+    interface ClienteService{
+        public List<ClienteDTO> getAllClients()
+        public ClienteDTO getClientById(Long id)
+        public ClienteDTO createClient(ClienteDTO clienteDTO)
+        public ClienteDTO updateClient(Long id, ClienteDTO clienteDTO)
+        public void deleteCliente(Long id)
+    }
+}
+
+package dao {
+    class ClienteServiceImpl
+    ClienteServiceImpl --|> ClienteService
+}
+
+package controller {
+    class ClienteController
+}
+
+package classDTO {
+    class ClienteDTO {
+        Long id
+        String nombreRazonSocial
+        TipoDocumento tipoDocumento
+        String numeroDoc
+        String correo
+        String direccion
+        Date fechaRegistro
+        String telefono
+        TipoCliente tipoCliente
+        List<VehiculoDTO> vehiculo
+        TipoPago tipoPago
+    }
+}
+
+ClienteServiceImpl -- ClienteRepository
+ClienteController -- ClienteService
+ClienteDTO <.. Cliente
+
+@enduml

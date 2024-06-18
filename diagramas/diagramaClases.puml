@@ -1,0 +1,84 @@
+@startuml ClaseInfoEntidad
+left to right direction
+package entity {
+
+
+
+
+    class Cliente {
+        Long id
+        String nombreRazonSocial
+        String tipoDocumento
+        String numeroDoc
+        String correo
+        String direccion
+        Date fechaRegistro
+        String telefono
+        TipoCliente tipoCliente
+        List<Vehiculo> vehiculos
+        String tipoPago
+    }
+
+    class Vehiculo {
+        Long id
+        String marca
+        String modelo
+        String color
+        String anio
+        String placa
+        Cliente cliente
+    }
+
+    class Tecnico {
+        Long id
+        String nombre
+        String apellido
+        String dni
+        Date fechaNacimiento
+        Double sueldo
+        String telefono
+        String direccion
+        String correo
+        String especialidad
+        Date fechaIngreso
+        String estado
+    }
+
+    class Servicios {
+        Long id
+        String nombre
+        Double costo
+        String descripcion
+        Integer tiempoEstimado
+    }
+
+    class OrdenTrabajo {
+        Long id
+        Vehiculo vehiculo
+        Date fechaIngreso
+        Date fechaSalida
+        List<Servicios> servicios
+        Double costoTotal
+        String comentario
+        String estado
+        Tecnico tecnico
+    }
+
+    class Factura {
+        Long id
+        Vehiculo vehiculo
+        Cliente cliente
+        OrdenTrabajo ordenTrabajo
+        Date fecha
+    }
+
+    Cliente "1" -- "0..*" Vehiculo : vehiculos
+    OrdenTrabajo "0..*" -- "1" Vehiculo : vehiculo
+    OrdenTrabajo "0..*" -- "0..*" Servicios : servicios
+    OrdenTrabajo "0..*" -- "1" Tecnico : tecnico
+    Factura "0..*" -- "1" Cliente : cliente
+    Factura "0..*" -- "1" OrdenTrabajo : ordenTrabajo
+}
+
+@enduml
+

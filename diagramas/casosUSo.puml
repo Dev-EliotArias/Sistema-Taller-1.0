@@ -1,0 +1,152 @@
+' @startuml Facturación
+
+' left to right direction
+' skinparam packageStyle rectangle
+
+' actor "Usuario Administrador" as Admin
+
+' package "Gestión de Clientes" {
+'     usecase (Registrar Cliente) as UC1
+'     usecase (Actualizar Cliente) as UC2
+'     usecase (Buscar Cliente) as UC3
+' }
+
+' package "Gestión de Vehículos" {
+'     usecase (Registrar Vehículo) as UC4
+'     usecase (Actualizar Vehiculo) as UC5
+'     usecase (Detalles del Vehículo) as UC6
+' }
+
+' package "Gestión de Servicios" {
+'     usecase (Registrar Servicio) as UC7
+'     usecase (Actualizar Servicio) as UC8
+' }
+
+' package "Gestion de Trabajos" {
+'     usecase (Registro de Orden) as UC9
+'     usecase (Actualizar Orden) as UC10
+'     usecase (Seguimiento de Orden) as UC11
+'     usecase (Asignar Trabajo a Tecnico) as UC12
+' }
+
+' package "Gestión de Tecnicos" {
+'     usecase (Registrar Tecnicos) as UC13
+'     usecase (Actualizar Tecnicos) as UC14
+'     usecase (Detalles del Tecnicos) as UC15
+' }
+
+
+' package "Facturación" {
+'     usecase (Registrar Costos) as UC16
+'     usecase (Generar Factura) as UC17
+'     usecase (Tipo de Pago) as UC18
+'     usecase (tarjeta) as UC181
+'     usecase (efectivo) as UC182
+' }
+
+' package "Reportes y Estadísticas" {
+'     usecase (Generar Reportes) as UC18
+'     usecase (Estadísticas de Servicios) as UC19
+' }
+
+' Admin --> UC1
+' Admin --> UC2
+' Admin --> UC3
+' Admin --> UC4
+' Admin --> UC5
+' Admin --> UC6
+' Admin --> UC7
+' Admin --> UC8
+' Admin --> UC9
+' Admin --> UC10
+' Admin --> UC11
+' Admin --> UC12
+' Admin --> UC13
+' Admin --> UC14
+' Admin --> UC15
+' Admin --> UC16
+' Admin --> UC17
+' Admin --> UC18
+' Admin --> UC19
+' UC15 <.. UC18 : Extend
+' UC17 ..> UC181: Include
+' UC17 ..> UC182: Include
+
+' @end
+
+@startuml Reportes
+
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Usuario Administrador" as Admin
+
+package "Gestión de Clientes" {
+    usecase (Registrar Cliente) as UC1
+    usecase (Actualizar Cliente) as UC2
+    usecase (Buscar Cliente) as UC3
+}
+
+package "Gestión de Vehículos" {
+    usecase (Registrar Vehículo) as UC4
+    usecase (Actualizar Vehículo) as UC5
+    usecase (Detalles del Vehículo) as UC6
+}
+
+package "Gestión de Servicios" {
+    usecase (Registrar Servicio) as UC7
+    usecase (Actualizar Servicio) as UC8
+}
+
+package "Gestión de Trabajos" {
+    usecase (Registro de Orden) as UC9
+    usecase (Actualizar Orden) as UC10
+    usecase (Seguimiento de Orden) as UC11
+    usecase (Asignar Trabajo a Técnico) as UC20
+}
+
+package "Gestión de Técnicos" {
+    usecase (Registrar Técnicos) as UC12
+    usecase (Actualizar Técnicos) as UC13
+    usecase (Detalles del Técnico) as UC14
+}
+
+package "Facturación" {
+    usecase (Registrar Costos) as UC15
+    usecase (Generar Factura) as UC16
+    usecase (Tipo de Pago) as UC17
+    usecase (Tarjeta) as UC171
+    usecase (Efectivo) as UC172
+}
+
+package "Reportes y Estadísticas" {
+    usecase (Generar Reportes) as UC18
+    usecase (Estadísticas de Servicios) as UC19
+}
+
+Admin --> UC1
+Admin --> UC2
+Admin --> UC3
+Admin --> UC4
+Admin --> UC5
+Admin --> UC6
+Admin --> UC7
+Admin --> UC8
+Admin --> UC9
+Admin --> UC10
+Admin --> UC11
+Admin --> UC20
+Admin --> UC12
+Admin --> UC13
+Admin --> UC14
+Admin --> UC15
+Admin --> UC16
+Admin --> UC17
+Admin --> UC18
+Admin --> UC19
+
+
+UC17 ..> UC171: Include
+UC17 ..> UC172: Include
+
+@enduml
