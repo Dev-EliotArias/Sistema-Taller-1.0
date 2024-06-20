@@ -9,7 +9,7 @@ import com.main.entities.Cliente;
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
-	@Query("SELECT COUNT(c) FROM Cliente c WHERE DATE(c.fechaRegistro) = CURRENT_DATE")
-    long countClientesRegistradosEsteMes();
+//	@Query("SELECT COUNT(c) FROM Cliente c WHERE DATE(c.fechaRegistro) = CURRENT_DATE")
+//    long countClientesRegistradosEsteMes();
 	
 }
