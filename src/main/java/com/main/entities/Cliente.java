@@ -15,7 +15,9 @@ import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Data
@@ -27,16 +29,21 @@ public class Cliente {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
     private String nombreRazonSocial;
+    
     @Enumerated(EnumType.STRING)
     private TipoDocumento tipoDocumento;
+    
     private String numeroDoc;
     private String correo;
-    private String direccion;
+    
+    private String direccion;   
     
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date fechaRegistro;
     private String telefono;
+    
     @Enumerated(EnumType.STRING)
     private TipoCliente tipoCliente;
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)

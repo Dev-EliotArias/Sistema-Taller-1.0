@@ -11,5 +11,7 @@ public interface TecnicoService {
     TecnicoDTO createTecnico(TecnicoDTO tecnicoDTO);
     TecnicoDTO updateTecnico(Long id, TecnicoDTO tecnicoDTO);
     void deleteTecnico(Long id);
+    
+    List<TecnicoDTO> getActiveTechnicians();
 
 }

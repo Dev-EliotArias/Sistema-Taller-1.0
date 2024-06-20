@@ -57,5 +57,11 @@ public class TecnicoControllers {
         tecnicoService.deleteTecnico(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    
+    @GetMapping("/active")
+    public ResponseEntity<List<TecnicoDTO>> getActiveTechnicians() {
+        List<TecnicoDTO> tecnicos = tecnicoService.getActiveTechnicians();
+        return new ResponseEntity<>(tecnicos, HttpStatus.OK);
+    }
 
 }

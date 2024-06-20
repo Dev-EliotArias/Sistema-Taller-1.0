@@ -69,7 +69,6 @@ public class ClienteImpl implements ClienteService {
 	    clienteFromDB.setCorreo(clienteDTO.getCorreo());
 	    clienteFromDB.setDireccion(clienteDTO.getDireccion());
 	    clienteFromDB.setTelefono(clienteDTO.getTelefono());
-	    clienteFromDB.setTipoCliente(clienteDTO.getTipoCliente());
 	    clienteFromDB.setTipoPago(clienteDTO.getTipoPago());		
 		Cliente updatedCliente = clienteRepository.save(clienteFromDB);
 		return modelMapper.map(updatedCliente, ClienteDTO.class);

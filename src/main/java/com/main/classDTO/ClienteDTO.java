@@ -28,7 +28,7 @@ public class ClienteDTO {
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date fechaRegistro;
     private String telefono;
-    private TipoCliente tipoCliente;
+//    private TipoCliente tipoCliente;
     private List<VehiculoDTO> vehiculos;
     private TipoPago tipoPago;
 }

@@ -62,5 +62,13 @@ public class TecnicoImpl implements TecnicoService {
     public void deleteTecnico(Long id) {
         tecnicoRepository.deleteById(id);
     }
+    
+    @Override
+    public List<TecnicoDTO> getActiveTechnicians() {
+        List<Tecnico> tecnicos = tecnicoRepository.findActiveTechnicians();
+        return tecnicos.stream().map(tecnico -> modelMapper.map(tecnico, TecnicoDTO.class)).collect(Collectors.toList());
+    }
+    
+    
 
 }
