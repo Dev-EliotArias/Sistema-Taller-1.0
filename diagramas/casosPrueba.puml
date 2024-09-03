@@ -1,0 +1,108 @@
+@startuml SistemaGestionTallerMecanico
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Administrador" as Admin
+
+package "Gestión de Clientes" {
+    usecase (Gestionar Clientes) as GC
+    usecase (Registrar Cliente) as RC
+    usecase (Actualizar Cliente) as AC
+    usecase (Buscar Cliente) as BC
+}
+
+package "Gestión de Vehículos" {
+    usecase (Gestionar Vehículos) as GV
+    usecase (Registrar Vehículo) as RV
+    usecase (Actualizar Vehículo) as AV
+    usecase (Buscar Vehículo) as BV
+}
+
+package "Gestión de Servicios" {
+    usecase (Gestionar Servicios) as GS
+    usecase (Registrar Servicio) as RS
+    usecase (Actualizar Servicio) as AS
+    usecase (Buscar Servicio) as BS
+}
+
+package "Gestión de Trabajos" {
+    usecase (Gestionar Trabajos) as GT
+    usecase (Registrar Orden) as RO
+    usecase (Actualizar Orden) as AO
+    usecase (Seguimiento de Orden) as SO
+    usecase (Asignar Trabajo a Técnico) as ATT
+}
+
+package "Gestión de Técnicos" {
+    usecase (Gestionar Técnicos) as GTec
+    usecase (Registrar Técnico) as RT
+    usecase (Actualizar Técnico) as AT
+    usecase (Buscar Técnico) as BT
+}
+
+package "Facturación" {
+    usecase (Gestionar Facturación) as GF
+    usecase (Registrar Costos) as RCos
+    usecase (Generar Factura) as GenF
+    usecase (Procesar Pago) as PP
+}
+
+package "Reportes y Estadísticas" {
+    usecase (Gestionar Reportes) as GR
+    usecase (Generar Reporte de Ventas) as GRV
+    usecase (Generar Reporte de Servicios) as GRS
+    usecase (Ver Estadísticas) as VE
+}
+
+Admin --> GC
+Admin --> GV
+Admin --> GS
+Admin --> GT
+Admin --> GTec
+Admin --> GF
+Admin --> GR
+
+GC ..> RC : include
+GC ..> AC : include
+GC ..> BC : include
+
+GV ..> RV : include
+GV ..> AV : include
+GV ..> BV : include
+
+GS ..> RS : include
+GS ..> AS : include
+GS ..> BS : include
+
+GT ..> RO : include
+GT ..> AO : include
+GT ..> SO : include
+GT ..> ATT : include
+
+GTec ..> RT : include
+GTec ..> AT : include
+GTec ..> BT : include
+
+GF ..> RCos : include
+GF ..> GenF : include
+GF ..> PP : include
+
+GR ..> GRV : include
+GR ..> GRS : include
+GR ..> VE : include
+
+' Conexiones con Facturación
+GC --> GF : proporciona datos
+GV --> GF : proporciona datos
+GS --> GF : proporciona datos
+GT --> GF : proporciona datos
+
+' Conexiones con Reportes y Estadísticas
+GC --> GR : proporciona datos
+GV --> GR : proporciona datos
+GS --> GR : proporciona datos
+GT --> GR : proporciona datos
+GTec --> GR : proporciona datos
+GF --> GR : proporciona datos
+
+@enduml

@@ -1,0 +1,24 @@
+@startuml GestionServicios
+'left to right direction
+actor "Administrador" as Admin
+
+rectangle "Gestión de Servicios" {
+    usecase (Gestionar Servicios) as UC1
+    usecase (Registrar Servicio) as UC2
+    usecase (Actualizar Servicio) as UC3
+    usecase (Buscar Servicio) as UC4
+    usecase (Eliminar Servicio) as UC5
+    usecase (Asignar Precio) as UC6
+    usecase (Categorizar Servicio) as UC7
+}
+
+Admin --> UC1
+UC1 ..> UC2 : include
+UC1 ..> UC3 : include
+UC1 ..> UC4 : include
+UC1 ..> UC5 : include
+UC2 ..> UC6 : include
+UC2 ..> UC7 : include
+UC3 ..> UC6 : include
+UC3 ..> UC7 : include
+@enduml

@@ -1,0 +1,102 @@
+\subsubsection*{4.2.2 Diagrama de casos de Uso}
+El diagrama de casos de uso es una herramienta fundamental dentro de la metodología UML (Unified Modeling Language) que permite visualizar las interacciones entre los usuarios (en este caso, el administrador) y el sistema. Este diagrama ayuda a identificar y organizar las funcionalidades clave del sistema en paquetes específicos, cada uno de los cuales agrupa un conjunto de acciones relacionadas que el usuario puede realizar.
+
+\begin{enumerate}
+    \item Gestión de Clientes: Este paquete se encarga de las funcionalidades relacionadas con la gestión de clientes, tales como registrar nuevos clientes, actualizar la información de los clientes existentes y buscar clientes en la base de datos.
+        \begin{itemize}
+            \item \textbf{Registrar Cliente:} Permite al administrador registrar un nuevo cliente en el sistema.
+            \item \textbf{Actualizar Cliente:} Permite al administrador actualizar la información de un cliente existente en el sistema.
+            \item \textbf{Buscar Cliente:} Permite al administrador buscar clientes en la base de datos según ciertos criterios. 
+        \end{itemize}
+        \begin{figure}[H]
+            \centering
+            \caption{Gestión de Clientes}
+            \includegraphics[width=12cm, height=6cm]{imagenes/cap4/casosUso/clientes.png}
+            \label{fig:Caso1}
+        \end{figure}
+
+    \item Gestión de Vehículos: Este paquete se enfoca en las funcionalidades relacionadas con la gestión de vehículos, incluyendo el registro de nuevos vehículos, la actualización de información de vehículos y la obtención de detalles específicos de un vehículo.
+        \begin{itemize}
+            \item \textbf{Registrar Vehículo:} Permite al administrador registrar un nuevo vehículo en el sistema.
+            \item \textbf{Actualizar Vehículo:} Permite al administrador actualizar la información de un vehículo registrado en el sistema.
+            \item \textbf{Detalles del Vehículo:} Permite al administrador obtener detalles específicos de un vehículo registrado en el sistema.
+        \end{itemize}
+        \begin{figure}[H]
+            \centering
+            \caption{Gestión de Vehículos}
+            \includegraphics[width=12cm, height=6cm]{imagenes/cap4/casosUso/Vehiculos.png}
+            \label{fig:Caso2}
+        \end{figure}    
+        
+    \item Gestión de Servicios: Este paquete se dedica a las funcionalidades relacionadas con la gestión de servicios ofrecidos por el taller, incluyendo el registro de nuevos servicios y la actualización de los existentes.
+        \begin{itemize}
+            \item \textbf{Registrar Servicio:} Permite al administrador registrar un nuevo servicio en el sistema.
+            \item \textbf{Actualizar Servicio:} Permite al administrador actualizar la información de un servicio existente.
+        \end{itemize}
+        \begin{figure}[H]
+            \centering
+            \caption{Gestión de Servicios}
+            \includegraphics[width=12cm, height=6cm]{imagenes/cap4/casosUso/Servicios.png}
+            \label{fig:Caso3}
+        \end{figure}
+        
+    \item Gestión de Trabajos:
+        Este paquete se encarga de la gestión de las órdenes de trabajo en el taller, abarcando desde el registro de nuevas órdenes hasta su seguimiento y actualización.
+        \begin{itemize}
+            \item \textbf{Registro de Orden:} Permite al administrador registrar una nueva orden de trabajo en el sistema.
+            \item \textbf{Actualizar Orden:} Permite al administrador actualizar la información de una orden de trabajo existente.
+            \item \textbf{Seguimiento de Orden:} Permite al administrador realizar el seguimiento del estado de una orden de trabajo.
+            \item \textbf{Asignar Trabajo a Técnico:} Permite al administrador asignar una orden de trabajo a un técnico específico.
+        \end{itemize}
+        \begin{figure}[H]
+            \centering
+            \caption{Gestión de Trabajos}
+            \includegraphics[width=12cm, height=6cm]{imagenes/cap4/casosUso/Trabajos.png}
+            \label{fig:Caso4}
+        \end{figure}
+
+    \item Gestión de Técnicos:
+        Este paquete gestiona la información relacionada con los técnicos del taller, incluyendo el registro, actualización y consulta de detalles específicos de los técnicos.
+        \begin{itemize}
+            \item \textbf{Registrar Técnicos:} Permite al administrador registrar un nuevo técnico en el sistema.
+            \item \textbf{Actualizar Técnicos:} Permite al administrador actualizar la información de un técnico existente en el sistema.
+            \item \textbf{Detalles del Técnico:} Permite al administrador obtener detalles específicos de un técnico registrado en el sistema.      
+        \end{itemize}  
+        \begin{figure}[H]
+            \centering
+            \caption{Gestión de Técnicos}
+            \includegraphics[width=12cm, height=6cm]{imagenes/cap4/casosUso/Tecnicos.png}
+            \label{fig:Caso5}
+        \end{figure}   
+    
+    \item Facturación:
+        Este paquete maneja todas las funcionalidades relacionadas con la facturación de los servicios proporcionados, incluyendo el registro de costos, la generación de facturas y la gestión de los tipos de pago.
+        \begin{itemize}
+            \item \textbf{Registrar Costos:} Permite al administrador registrar los costos asociados a los servicios realizados.
+            \item \textbf{Generar Factura:} Permite al administrador generar una factura para los servicios prestados.
+            \item \textbf{Tipo de Pago:} Permite al administrador seleccionar el tipo de pago para una factura. Este caso de uso incluye dos sub-casos de uso:
+            \begin{itemize}
+                \item Tarjeta: Permite al administrador gestionar pagos realizados con tarjeta.
+                \item Efectivo: Permite al administrador gestionar pagos realizados en efectivo.
+            \end{itemize}
+        \end{itemize}
+        \begin{figure}[H]
+            \centering
+            \caption{Facturación}
+            \includegraphics[width=12cm, height=6cm]{imagenes/cap4/casosUso/Facturación.png}
+            \label{fig:Caso6}
+        \end{figure}      
+
+    \item Reportes y Estadísticas:
+        Este paquete se enfoca en la generación de reportes y la recopilación de estadísticas sobre los servicios proporcionados por el taller.
+        \begin{itemize}
+            \item \textbf{Generar Reportes:} Permite al administrador generar reportes basados en la información almacenada en el sistema.
+            \item \textbf{Estadísticas de Servicios:} Permite al administrador obtener estadísticas detalladas sobre los servicios prestados, facilitando el análisis del desempeño del taller.  
+        \end{itemize}  
+        \begin{figure}[H]
+            \centering
+            \caption{Reportes y Estadísticas}
+            \includegraphics[width=12cm, height=6cm]{imagenes/cap4/casosUso/Reportes.png}
+            \label{fig:Caso7}
+        \end{figure}        
+\end{enumerate}

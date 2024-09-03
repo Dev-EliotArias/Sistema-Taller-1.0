@@ -1,0 +1,28 @@
+@startuml imple
+
+allow_mixing
+
+skinparam node {
+    BorderColor Black
+    BackgroundColor White
+    FontColor Black
+}
+
+node "Cliente" {
+    RECTANGLE "Navegador Web" as browser
+}
+
+node "Servidor de Aplicaciones" {
+    RECTANGLE "Angular 17\nFrontend" as angular
+    RECTANGLE "Spring Boot\nBackend" as spring
+}
+
+node "Servidor de Base de Datos" {
+    database "MySQL" as mysql
+}
+
+browser <--> angular : HTTP/HTTPS\nPetición/Respuesta
+angular <-right-> spring : HTTP/HTTPS\nPetición/Respuesta
+spring <--> mysql : JDBC\nConsulta/Resultado
+
+@enduml

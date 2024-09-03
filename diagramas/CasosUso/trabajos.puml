@@ -1,0 +1,23 @@
+@startuml GestionTrabajos
+'left to right direction
+actor "Administrador" as Admin
+
+rectangle "Gestión de Trabajos" {
+    usecase (Gestionar Trabajos) as UC1
+    usecase (Registrar Orden) as UC2
+    usecase (Actualizar Orden) as UC3
+    usecase (Buscar Orden) as UC4
+    usecase (Seguimiento de Orden) as UC5
+    usecase (Asignar Trabajo a Técnico) as UC6
+    usecase (Cerrar Orden) as UC7
+}
+
+Admin --> UC1
+UC1 ..> UC2 : include
+UC1 ..> UC3 : include
+UC1 ..> UC4 : include
+UC1 ..> UC5 : include
+UC2 ..> UC6 : include
+UC3 ..> UC6 : include
+UC5 ..> UC7 : extend
+@enduml
