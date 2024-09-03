@@ -1,10 +1,8 @@
 package com.main.entities;
+import java.sql.Date;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -17,7 +15,9 @@ import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Data
@@ -29,14 +29,21 @@ public class Cliente {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-    private String nombre;
-    private String apellido;
-    private String dni;
-    private String ruc;
-    private String razonSocial;
+	
+    private String nombreRazonSocial;
+    
+    @Enumerated(EnumType.STRING)
+    private TipoDocumento tipoDocumento;
+    
+    private String numeroDoc;
     private String correo;
-    private String direccion;
+    
+    private String direccion;   
+    
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private Date fechaRegistro;
     private String telefono;
+    
     @Enumerated(EnumType.STRING)
     private TipoCliente tipoCliente;
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)

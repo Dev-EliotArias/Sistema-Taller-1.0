@@ -34,11 +34,13 @@ public class OrdenTrabajo {
     private Vehiculo vehiculo;
     private Date fechaIngreso;
     private Date fechaSalida;
+    
     @ManyToMany
     @JoinTable(name = "orden_trabajo_servicios",
             joinColumns = @JoinColumn(name = "orden_trabajo_id"),
             inverseJoinColumns = @JoinColumn(name = "servicios_id"))
     private List<Servicios> servicios;
+    
     private Double costoTotal;
     private String comentario;
     @Enumerated(EnumType.STRING)

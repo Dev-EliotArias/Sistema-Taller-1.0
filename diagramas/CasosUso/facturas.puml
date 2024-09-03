@@ -1,0 +1,22 @@
+@startuml Facturacion
+'left to right direction
+actor "Administrador" as Admin
+
+rectangle "Facturación" {
+    usecase (Gestionar Facturación) as UC1
+    usecase (Registrar Costos) as UC2
+    usecase (Generar Factura) as UC3
+    usecase (Procesar Pago) as UC4
+    usecase (Pago con Tarjeta) as UC5
+    usecase (Pago en Efectivo) as UC6
+    usecase (Anular Factura) as UC7
+}
+
+Admin --> UC1
+UC1 ..> UC2 : include
+UC1 ..> UC3 : include
+UC3 ..> UC4 : include
+UC4 <.. UC5 : extend
+UC4 <.. UC6 : extend
+UC1 ..> UC7 : include
+@enduml

@@ -1,0 +1,23 @@
+@startuml GestionVehiculos
+'left to right direction
+actor "Administrador" as Admin
+
+rectangle "Gestión de Vehículos" {
+    usecase (Gestionar Vehículos) as UC1
+    usecase (Registrar Vehículo) as UC2
+    usecase (Actualizar Vehículo) as UC3
+    usecase (Buscar Vehículo) as UC4
+    usecase (Eliminar Vehículo) as UC5
+    usecase (Ver Detalles del Vehículo) as UC6
+    usecase (Asociar Vehículo a Cliente) as UC7
+}
+
+Admin --> UC1
+UC1 ..> UC2 : include
+UC1 ..> UC3 : include
+UC1 ..> UC4 : include
+UC1 ..> UC5 : include
+UC2 ..> UC7 : include
+UC4 ..> UC6 : extend
+UC3 ..> UC6 : include
+@enduml

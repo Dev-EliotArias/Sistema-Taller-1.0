@@ -1,101 +1,80 @@
 @startuml clases
-    class Cliente{
-        -id: Long
-        -nombre: String
-        -apellido: String
-        -dni: String
-        -ruc: String
-        -razonSocial: String
-        -correo: String
-        -direccion: String
-        -telefono: String
-        -tipoCliente: TipoCliente
-        -vehiculo: List<Vehiculo>
-        -tipoPago: TipoPago
+left to right direction
+    package entity {
+
+    class Cliente {
+        Long id
+        String nombreRazonSocial
+        String tipoDocumento
+        String numeroDoc
+        String correo
+        String direccion
+        Date fechaRegistro
+        String telefono
+        TipoCliente tipoCliente
+        List<Vehiculo> vehiculos
+        String tipoPago
     }
 
-    enum TipoPago{
-        EFECTIVO
-        TARJETA
+    class Vehiculo {
+        Long id
+        String marca
+        String modelo
+        String color
+        String anio
+        String placa
+        Cliente cliente
     }
 
-    enum TipoCliente{
-        PERSONA_NATURAL
-        EMPRESA
-        CLIENTE_NORMAL
+    class Tecnico {
+        Long id
+        String nombre
+        String apellido
+        String dni
+        Date fechaNacimiento
+        Double sueldo
+        String telefono
+        String direccion
+        String correo
+        String especialidad
+        Date fechaIngreso
+        String estado
     }
 
-    class Direccion{
-        -id: Long
-        -cooperativa: String
-        -calle: String
-        -distrito: String
-        -departamento: String
+    class Servicios {
+        Long id
+        String nombre
+        Double costo
+        String descripcion
+        Integer tiempoEstimado
     }
 
-    class Vehiculo{
-        -id: Long
-        -marca: String
-        -modelo: String
-        -color: String
-        -anio: String
-        -placa: String
-        -cliente: Cliente
+    class OrdenTrabajo {
+        Long id
+        Vehiculo vehiculo
+        Date fechaIngreso
+        Date fechaSalida
+        List<Servicios> servicios
+        Double costoTotal
+        String comentario
+        String estado
+        Tecnico tecnico
     }
 
-    class Servicios{
-        -id: Long
-        -nombre: String
-        -costo: Double
-        -descripcion: String
-        -tiempoEstimado: Double
+    class Factura {
+        Long id
+        Vehiculo vehiculo
+        Cliente cliente
+        OrdenTrabajo ordenTrabajo
+        Date fecha
     }
 
-    class Tecnico{
-        -id: Long
-        -nombre: String 
-        -apellido: String 
-        -dni: String
-        -fechaNacimiento: Date 
-        -sueldo: Double 
-        -telefono: String 
-        -direccion: Direccion
-    }
-
-    class OrdenTrabajo{
-        -id: Long
-        -vehiculo: Vehiculo
-        -fechaIngreso: Date
-        -fechaSalida: Date
-        -servicios: List<Servicios>
-        -costoTotal: Double
-        -comentario: String
-        -estado: Estado
-    }
-
-    enum Estado{
-        PENDIENTE
-        EN_PROCESO
-        FINALIZADO
-    }
-
-    class Factura{
-        -id: Long
-        -vehiculo: Vehiculo
-        -cliente: Cliente
-        -ordenTrabajo: OrdenTrabajo
-        -fecha: Date
-    }
-
-    Cliente --* Vehiculo
-    Cliente -- Direccion
-    Tecnico -- Direccion
-    Vehiculo -- Cliente
-    Tecnico --* OrdenTrabajo
-    OrdenTrabajo --* Tecnico
-    OrdenTrabajo --* Factura
-    Factura --* OrdenTrabajo
-    Servicios --* OrdenTrabajo
-    OrdenTrabajo --* Servicios
+    Cliente "1" -- "0..*" Vehiculo : vehiculos
+    Vehiculo "1" -- "0..*" OrdenTrabajo : ordenesTrabajo
+    OrdenTrabajo "0..*" -- "0..*" Servicios : servicios
+    OrdenTrabajo "0..*" -- "1" Tecnico : tecnico
+    Factura "0..*" -- "1" Cliente : cliente
+    Factura "0..*" -- "1" OrdenTrabajo : ordenTrabajo
+}
 
 @enduml 

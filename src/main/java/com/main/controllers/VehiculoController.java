@@ -30,36 +30,30 @@ public class VehiculoController {
         return new ResponseEntity<>(vehiculos, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+	@GetMapping("/{id}")
     public ResponseEntity<VehiculoDTO> getVehiculoById(@PathVariable Long id) {
         VehiculoDTO vehiculo = vehiculoService.getVehiculoById(id);
-        if (vehiculo != null) {
-            return new ResponseEntity<>(vehiculo, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity<>(vehiculo, HttpStatus.OK);
     }
 
-    @PostMapping("/{idCliente}")
-    public ResponseEntity<VehiculoDTO> createVehiculo(@PathVariable Long idCliente, @RequestBody VehiculoDTO vehiculoDTO) {
-        VehiculoDTO newVehiculo = vehiculoService.createVehiculo(idCliente, vehiculoDTO);
+    @PostMapping()
+    public ResponseEntity<VehiculoDTO> createVehiculo(@RequestBody VehiculoDTO vehiculoDTO) {
+        VehiculoDTO newVehiculo = vehiculoService.createVehiculo(vehiculoDTO);
         return new ResponseEntity<>(newVehiculo, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<VehiculoDTO> updateVehiculo(@PathVariable Long id, @RequestBody VehiculoDTO vehiculoDTO) {
         VehiculoDTO updatedVehiculo = vehiculoService.updateVehiculo(id, vehiculoDTO);
-        if (updatedVehiculo != null) {
-            return new ResponseEntity<>(updatedVehiculo, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity<>(updatedVehiculo, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteVehiculo(@PathVariable Long id){
+    public ResponseEntity<Void> deleteVehiculo(@PathVariable Long id) {
         vehiculoService.deleteVehiculo(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    
 
 }

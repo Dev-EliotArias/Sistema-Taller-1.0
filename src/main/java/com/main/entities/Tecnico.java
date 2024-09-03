@@ -5,6 +5,8 @@ import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,7 +22,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Tecnico {
 	
-    @Id
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
@@ -29,7 +31,15 @@ public class Tecnico {
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date fechaNacimiento;
     private Double sueldo;
-    private String telefono;    
+    private String telefono;
     private String direccion;
+    private String correo;
+    @Enumerated(EnumType.STRING)
+    private Especialidad especialidad;
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private Date fechaIngreso;
+    @Enumerated(EnumType.STRING)
+    private TecEstado estado;
+  
     
 }
